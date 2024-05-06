@@ -1,8 +1,11 @@
+import GameBoard from "./makeGmBoard";
+
 export default class Ship {
   constructor(length) {
     this.length = length;
     this.numOfTimesHit = 0;
     this.sunk = false;
+    this.tails = [];
   }
 
   hit() {
@@ -13,7 +16,6 @@ export default class Ship {
   }
 
   isSunk() {
-    //alert("ship is sunk");
     this.sunk = true;
   }
 }

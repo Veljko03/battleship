@@ -20,8 +20,8 @@ test("notSunk", () => {
 test("checkPosition", () => {
   const gameBoard = new GameBoard();
   gameBoard.createBoard();
-  const expectNUll = gameBoard.getTailValue(2, 2);
-  expect(expectNUll).toEqual(null);
+  const expectNull = gameBoard.getTailValue(2, 2);
+  expect(expectNull).toEqual(null);
 });
 
 test("checkPosition", () => {
@@ -36,6 +36,12 @@ test("checkReciveAtack", () => {
   const gameBoard = new GameBoard();
   gameBoard.createBoard();
   gameBoard.placeShip(2, 2, 3);
-  const hitTarget = gameBoard.reciveAttack(2, 2);
-  expect(hitTarget).toMatch("you hit the boat");
+  const misedTarget = gameBoard.reciveAttack(5, 5);
+  expect(misedTarget).toMatch("you missed");
+});
+
+test("reciveAttack", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+  gameBoard.placeShip(2, 2, 3);
 });

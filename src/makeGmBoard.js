@@ -3,6 +3,9 @@ import Ship from "./makeShip";
 export default class GameBoard {
   constructor() {
     this.board = [];
+    this.totalNumOfShips = 5;
+    this.numOfShipsSunk = 0;
+    this.position = "horizontal";
   }
   createBoard() {
     const size = 10;
@@ -15,8 +18,14 @@ export default class GameBoard {
     }
   }
 
-  placeShip(x, y, length) {
-    this.board[x][y] = new Ship(length);
+  placeShip(x, y, ship, position) {
+    //if(ship.horizontal)
+    //fill that tail and tails(num of tails to fill = ship.lenght-1) next to it on a right side
+    for (let i = 0; i < ship.length; i++) {
+      if (position == "horizontal") {
+        this.board[x + i][y] = ship;
+      }
+    }
   }
 
   getTailValue(x, y) {
@@ -25,10 +34,16 @@ export default class GameBoard {
 
   reciveAttack(x, y) {
     if (this.board[x][y] == null) {
+      //fill tail and disable clicking again
       return "you missed";
     } else {
-      return "you hit the boat";
+      //Ship hitted and if it isSunk, numOfShipsSunk++    ...
+      //gameOver();
     }
+  }
+
+  gameOver() {
+    //if( numOfShipsSUnk == totalNUmOfShips) return "gameOver";
   }
 }
 
