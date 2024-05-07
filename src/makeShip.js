@@ -5,17 +5,17 @@ export default class Ship {
     this.length = length;
     this.numOfTimesHit = 0;
     this.sunk = false;
-    this.tails = [];
   }
 
   hit() {
     this.numOfTimesHit++;
-    if (this.numOfTimesHit == this.length) {
-      this.isSunk();
-    }
+    this.isSunk();
   }
 
   isSunk() {
-    this.sunk = true;
+    if (this.numOfTimesHit == this.length) {
+      this.sunk = true;
+      return true;
+    }
   }
 }

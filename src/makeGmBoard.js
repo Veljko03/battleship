@@ -3,7 +3,7 @@ import Ship from "./makeShip";
 export default class GameBoard {
   constructor() {
     this.board = [];
-    this.totalNumOfShips = 5;
+    this.totalNumOfShips = 2;
     this.numOfShipsSunk = 0;
     this.position = "horizontal";
   }
@@ -19,8 +19,6 @@ export default class GameBoard {
   }
 
   placeShip(x, y, ship, position) {
-    //if(ship.horizontal)
-    //fill that tail and tails(num of tails to fill = ship.lenght-1) next to it on a right side
     for (let i = 0; i < ship.length; i++) {
       if (position == "horizontal") {
         this.board[x + i][y] = ship;
@@ -34,16 +32,25 @@ export default class GameBoard {
 
   reciveAttack(x, y) {
     if (this.board[x][y] == null) {
-      //fill tail and disable clicking again
+      this.board[x][y] = "missed";
       return "you missed";
+    } else if (this.board[x][y] == "missed") {
+      return;
+    } else if (this.board[x][y] == "you hiited ship") {
+      return;
     } else {
-      //Ship hitted and if it isSunk, numOfShipsSunk++    ...
-      //gameOver();
+      const ship = this.board[x][y];
+      ship.hit();
+
+      this.board[x][y] = "you hiited ship";
+
+      if (ship.sunk == true) this.numOfShipsSunk++;
+      this.gameOver();
     }
   }
 
   gameOver() {
-    //if( numOfShipsSUnk == totalNUmOfShips) return "gameOver";
+    if (this.numOfShipsSunk == this.totalNumOfShips) return "gameOver";
   }
 }
 
