@@ -1,5 +1,3 @@
-import GameBoard from "./makeGmBoard";
-
 export default class Ship {
   constructor(length) {
     this.length = length;

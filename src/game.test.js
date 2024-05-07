@@ -48,17 +48,18 @@ test("reciveAttack", () => {
   gameBoard.placeShip(2, 2, ship, "horizontal");
   gameBoard.reciveAttack(3, 2);
   const val = gameBoard.getTailValue(3, 2);
-  expect(val).toMatch("you hiited ship");
+  expect(val).toMatch("you hitted ship");
 });
 
 test("gameOver", () => {
   const gameBoard = new GameBoard();
   gameBoard.createBoard();
+  gameBoard.totalNumOfShips = 2;
   const ship1 = new Ship(1);
-  const ship2 = new Ship(2);
+  const ship2 = new Ship(1);
   gameBoard.placeShip(2, 2, ship1, "horizontal");
   gameBoard.placeShip(4, 4, ship2, "horizontal");
   gameBoard.reciveAttack(2, 2);
   gameBoard.reciveAttack(4, 4);
-  expect(ship1.sunk).toEqual(true);
+  expect(gameBoard.gameOver()).toMatch("gameOver");
 });

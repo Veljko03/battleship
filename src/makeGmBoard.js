@@ -1,9 +1,7 @@
-import Ship from "./makeShip";
-
 export default class GameBoard {
   constructor() {
     this.board = [];
-    this.totalNumOfShips = 2;
+    this.totalNumOfShips = 5;
     this.numOfShipsSunk = 0;
     this.position = "horizontal";
   }
@@ -36,13 +34,13 @@ export default class GameBoard {
       return "you missed";
     } else if (this.board[x][y] == "missed") {
       return;
-    } else if (this.board[x][y] == "you hiited ship") {
+    } else if (this.board[x][y] == "you hitted ship") {
       return;
     } else {
       const ship = this.board[x][y];
       ship.hit();
 
-      this.board[x][y] = "you hiited ship";
+      this.board[x][y] = "you hitted ship";
 
       if (ship.sunk == true) this.numOfShipsSunk++;
       this.gameOver();
