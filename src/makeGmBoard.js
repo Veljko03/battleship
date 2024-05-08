@@ -5,13 +5,7 @@ export default class GameBoard {
     this.board = [];
     this.totalNumOfShips = 3;
     this.numOfShipsSunk = 0;
-    this.allShips = [
-      new Ship(5),
-      new Ship(4),
-      new Ship(3),
-      new Ship(2),
-      new Ship(2),
-    ];
+
     this.position = "vertical";
     this.over = false;
   }
@@ -68,7 +62,7 @@ export default class GameBoard {
     }
   }
 
-  printBoard(boardPlace) {
+  printBoard(boardPlace, turn) {
     const rows = 9;
 
     for (let i = 0; i <= rows; i++) {
@@ -80,7 +74,11 @@ export default class GameBoard {
         c.setAttribute("class", "cell");
         console.log(this.board[i][j]);
         if (this.board[i][j] != null) {
-          c.style.backgroundColor = "red";
+          if (turn == "player") {
+            c.style.backgroundColor = "black";
+          } else {
+            c.style.backgroundColor = "white";
+          }
         } else {
           c.style.backgroundColor = "white";
         }
@@ -92,7 +90,7 @@ export default class GameBoard {
             if (this.board[i][j] == null || this.board[i][j] == "missed") {
               c.style.backgroundColor = "gray";
             } else if (this.board[i][j] == "you hitted ship") {
-              c.style.backgroundColor = "black";
+              c.style.backgroundColor = "red";
             }
           }
         });

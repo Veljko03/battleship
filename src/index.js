@@ -5,9 +5,9 @@ import Ship from "./makeShip";
 function initializeGame() {
   const b1 = document.querySelector(".board-one");
   const b2 = document.querySelector(".board-two");
-
-  const player1 = new Player("You are lpayer one");
-  const player2 = new Player("Computer");
+  const turn = ["player", "computer"];
+  const player1 = new Player("player");
+  const player2 = new Player("computer");
   const board1 = player1.board;
   const board2 = player2.board;
 
@@ -22,7 +22,7 @@ function initializeGame() {
   board2.placeShip(3, 4, new Ship(3), "vertical");
   board2.placeShip(0, 6, new Ship(5), "vertical");
 
-  board1.printBoard(b1);
-  board2.printBoard(b2);
+  board1.printBoard(b1, turn[0]);
+  board2.printBoard(b2, turn[1]);
 }
 initializeGame();
