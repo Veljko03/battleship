@@ -13,5 +13,20 @@ h1 {
 }
 .cell {
   flex-grow: 1;
-  background-color: white;
+  border: solid 1px black;
+}
+.board-constainers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+}
+.board-one,
+.board-two {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 500px;
+  height: 500px;
 }

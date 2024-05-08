@@ -1,15 +1,26 @@
+import Ship from "./makeShip";
+
 export default class GameBoard {
   constructor() {
     this.board = [];
-    this.totalNumOfShips = 5;
+    this.totalNumOfShips = 3;
     this.numOfShipsSunk = 0;
-    this.position = "horizontal";
+    this.allShips = [
+      new Ship(5),
+      new Ship(4),
+      new Ship(3),
+      new Ship(2),
+      new Ship(2),
+    ];
+    this.position = "vertical";
+    this.over = false;
   }
   createBoard() {
     const size = 10;
 
     for (let i = 0; i < size; i++) {
       this.board[i] = [];
+
       for (let j = 0; j < size; j++) {
         this.board[i][j] = null;
       }
@@ -17,11 +28,14 @@ export default class GameBoard {
   }
 
   placeShip(x, y, ship, position) {
-    for (let i = 0; i < ship.length; i++) {
-      if (position == "horizontal") {
-        this.board[x + i][y] = ship;
+    let size = x + ship.length;
+    if (size < 10) {
+      for (let i = 0; i < ship.length; i++) {
+        if (position == "vertical") {
+          this.board[x + i][y] = ship;
+        }
       }
-    }
+    } else return "err";
   }
 
   getTailValue(x, y) {
@@ -31,7 +45,7 @@ export default class GameBoard {
   reciveAttack(x, y) {
     if (this.board[x][y] == null) {
       this.board[x][y] = "missed";
-      return "you missed";
+      return;
     } else if (this.board[x][y] == "missed") {
       return;
     } else if (this.board[x][y] == "you hitted ship") {
@@ -48,8 +62,41 @@ export default class GameBoard {
   }
 
   gameOver() {
-    if (this.numOfShipsSunk == this.totalNumOfShips) return "gameOver";
+    if (this.numOfShipsSunk == this.totalNumOfShips) {
+      this.over = true;
+      return alert("game ovee");
+    }
+  }
+
+  printBoard(boardPlace) {
+    const rows = 9;
+
+    for (let i = 0; i <= rows; i++) {
+      const r = document.createElement("div");
+      boardPlace.appendChild(r).className = "make";
+
+      for (let j = 0; j <= rows; j++) {
+        const c = document.createElement("div");
+        c.setAttribute("class", "cell");
+        console.log(this.board[i][j]);
+        if (this.board[i][j] != null) {
+          c.style.backgroundColor = "red";
+        } else {
+          c.style.backgroundColor = "white";
+        }
+        r.appendChild(c);
+
+        c.addEventListener("click", () => {
+          if (!this.over) {
+            this.reciveAttack(i, j);
+            if (this.board[i][j] == null || this.board[i][j] == "missed") {
+              c.style.backgroundColor = "gray";
+            } else if (this.board[i][j] == "you hitted ship") {
+              c.style.backgroundColor = "black";
+            }
+          }
+        });
+      }
+    }
   }
 }
-
-module.exports = GameBoard;

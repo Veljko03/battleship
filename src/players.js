@@ -6,5 +6,3 @@ export default class Player {
     this.board = new GameBoard();
   }
 }
-
-module.exports = Player;
