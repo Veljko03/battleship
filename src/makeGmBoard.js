@@ -64,7 +64,7 @@ export default class GameBoard {
 
   printBoard(boardPlace, turn) {
     const rows = 9;
-
+    let currTurn = turn;
     for (let i = 0; i <= rows; i++) {
       const r = document.createElement("div");
       boardPlace.appendChild(r).className = "make";
@@ -75,7 +75,7 @@ export default class GameBoard {
         console.log(this.board[i][j]);
         if (this.board[i][j] != null) {
           //show hips on players(left) side
-          if (turn == "player") {
+          if (currTurn == "player") {
             c.style.backgroundColor = "black";
           } else {
             c.style.backgroundColor = "white";
@@ -88,18 +88,20 @@ export default class GameBoard {
         c.addEventListener("click", () => {
           if (!this.over) {
             //player can attack only right board(enemy-computer)
-            if (turn == "computer") {
+            if (currTurn == "player") {
               this.reciveAttack(i, j);
               if (this.board[i][j] == null || this.board[i][j] == "missed") {
                 c.style.backgroundColor = "gray";
               } else if (this.board[i][j] == "you hitted ship") {
                 c.style.backgroundColor = "red";
               }
+
+              currTurn = "block next move";
             }
           }
         });
         //if computer is attacking player...
-        if (turn == "player") {
+        if (currTurn == "computer") {
           if (!this.over) {
             let x = Math.floor(Math.random() * 10);
             let y = Math.floor(Math.random() * 10);
@@ -112,6 +114,7 @@ export default class GameBoard {
               c.style.backgroundColor = "red";
             }
           }
+          currTurn = "block next move";
         }
       }
     }
