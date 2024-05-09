@@ -22,7 +22,7 @@ function initializeGame() {
   board2.placeShip(3, 4, new Ship(3), "vertical");
   board2.placeShip(0, 6, new Ship(5), "vertical");
 
-  board1.printBoard(b1, turn[0]);
+  board1.printBoard(b1);
   board2.printBoard(b2, turn[1]);
 }
 initializeGame();

@@ -74,6 +74,7 @@ export default class GameBoard {
         c.setAttribute("class", "cell");
         console.log(this.board[i][j]);
         if (this.board[i][j] != null) {
+          //show hips on players(left) side
           if (turn == "player") {
             c.style.backgroundColor = "black";
           } else {
@@ -86,14 +87,32 @@ export default class GameBoard {
 
         c.addEventListener("click", () => {
           if (!this.over) {
-            this.reciveAttack(i, j);
+            //player can attack only right board(enemy-computer)
+            if (turn == "computer") {
+              this.reciveAttack(i, j);
+              if (this.board[i][j] == null || this.board[i][j] == "missed") {
+                c.style.backgroundColor = "gray";
+              } else if (this.board[i][j] == "you hitted ship") {
+                c.style.backgroundColor = "red";
+              }
+            }
+          }
+        });
+        //if computer is attacking player...
+        if (turn == "player") {
+          if (!this.over) {
+            let x = Math.floor(Math.random() * 10);
+            let y = Math.floor(Math.random() * 10);
+
+            this.reciveAttack(x, y);
+
             if (this.board[i][j] == null || this.board[i][j] == "missed") {
               c.style.backgroundColor = "gray";
             } else if (this.board[i][j] == "you hitted ship") {
               c.style.backgroundColor = "red";
             }
           }
-        });
+        }
       }
     }
   }
