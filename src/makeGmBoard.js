@@ -62,9 +62,9 @@ export default class GameBoard {
     }
   }
 
-  printBoard(boardPlace, turn) {
+  printBoard(boardPlace, attackedBy, currBoard) {
     const rows = 9;
-    let currTurn = turn;
+
     for (let i = 0; i <= rows; i++) {
       const r = document.createElement("div");
       boardPlace.appendChild(r).className = "make";
@@ -72,10 +72,13 @@ export default class GameBoard {
       for (let j = 0; j <= rows; j++) {
         const c = document.createElement("div");
         c.setAttribute("class", "cell");
-        console.log(this.board[i][j]);
-        if (this.board[i][j] != null) {
+        if (this.board[i][j] == "missed") {
+          c.style.backgroundColor = "gray";
+        } else if (this.board[i][j] == "you hitted ship") {
+          c.style.backgroundColor = "red";
+        } else if (this.board[i][j] != null) {
           //show hips on players(left) side
-          if (currTurn == "player") {
+          if (currBoard == "left") {
             c.style.backgroundColor = "black";
           } else {
             c.style.backgroundColor = "white";
@@ -86,9 +89,10 @@ export default class GameBoard {
         r.appendChild(c);
 
         c.addEventListener("click", () => {
-          if (!this.over) {
-            //player can attack only right board(enemy-computer)
-            if (currTurn == "player") {
+          if (attackedBy == "player") {
+            if (!this.over) {
+              //player can attack only right board(enemy-computer)
+
               this.reciveAttack(i, j);
               if (this.board[i][j] == null || this.board[i][j] == "missed") {
                 c.style.backgroundColor = "gray";
@@ -96,27 +100,23 @@ export default class GameBoard {
                 c.style.backgroundColor = "red";
               }
 
-              currTurn = "block next move";
+              attackedBy = "block next move";
             }
           }
         });
-        //if computer is attacking player...
-        if (currTurn == "computer") {
-          if (!this.over) {
-            let x = Math.floor(Math.random() * 10);
-            let y = Math.floor(Math.random() * 10);
-
-            this.reciveAttack(x, y);
-
-            if (this.board[i][j] == null || this.board[i][j] == "missed") {
-              c.style.backgroundColor = "gray";
-            } else if (this.board[i][j] == "you hitted ship") {
-              c.style.backgroundColor = "red";
-            }
-          }
-          currTurn = "block next move";
-        }
       }
+      //if computer is attacking player...
+    }
+  }
+
+  computerRandomAttack() {
+    if (!this.over) {
+      let x = Math.floor(Math.random() * 10);
+      let y = Math.floor(Math.random() * 10);
+      console.log(x);
+      console.log(y);
+
+      this.reciveAttack(x, y);
     }
   }
 }
