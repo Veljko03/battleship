@@ -1,3 +1,12 @@
+import playRound, {
+  b1,
+  b2,
+  board1,
+  board2,
+  currPlayer,
+  madeMove,
+  playerMadeMove,
+} from ".";
 import Ship from "./makeShip";
 
 export default class GameBoard {
@@ -8,6 +17,7 @@ export default class GameBoard {
 
     this.position = "vertical";
     this.over = false;
+    this.clicked = false;
   }
   createBoard() {
     const size = 10;
@@ -64,7 +74,7 @@ export default class GameBoard {
 
   printBoard(boardPlace, attackedBy, currBoard) {
     const rows = 9;
-
+    this.clicked = false;
     for (let i = 0; i <= rows; i++) {
       const r = document.createElement("div");
       boardPlace.appendChild(r).className = "make";
@@ -99,13 +109,13 @@ export default class GameBoard {
               } else if (this.board[i][j] == "you hitted ship") {
                 c.style.backgroundColor = "red";
               }
-
+              this.clicked = true;
               attackedBy = "block next move";
+              playerMadeMove(true);
             }
           }
         });
       }
-      //if computer is attacking player...
     }
   }
 

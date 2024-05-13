@@ -7,17 +7,15 @@ const startBtn = document.querySelector(".start");
 startBtn.addEventListener("click", () => {
   initializeGame();
 });
-let currPlayer = "player";
-
+export let currPlayer;
+export const b1 = document.querySelector(".board-one");
+export const b2 = document.querySelector(".board-two");
+export const attackedBy = ["player", "computer"];
+export const player1 = new Player("player");
+export const player2 = new Player("computer");
+export const board1 = player1.board;
+export const board2 = player2.board;
 function initializeGame() {
-  const b1 = document.querySelector(".board-one");
-  const b2 = document.querySelector(".board-two");
-  const attackedBy = ["player", "computer"];
-  const player1 = new Player("player");
-  const player2 = new Player("computer");
-  const board1 = player1.board;
-  const board2 = player2.board;
-
   board1.createBoard();
   board2.createBoard();
 
@@ -30,29 +28,10 @@ function initializeGame() {
   board2.placeShip(0, 6, new Ship(5), "vertical");
 
   let currBoard = ["left", "right"];
+  board1.printBoard(b1, "something", "left");
+  board2.printBoard(b2, "something");
 
-  // for (let i = 0; i < 100; i++) {
-  //   clearAll(b1, b2);
-  //   if (attBy == "player") {
-  //     clearAll(b1, b2);
-  //     playerTurn(board1, board2, b1, b2, attackedBy[0]);
-  //     attBy = "computer";
-  //   } else if (attBy == "computer") {
-  //     clearAll(b1, b2);
-  //     computerTurn(board1, board2, b1, b2, attackedBy[1]);
-  //     attBy = "player";
-  //   }
-  //   if (board1.over || board2.over) {
-  //     i = 200;
-  //   }
-  // }
-
-  //playerTurn(board1, board2, b1, b2, attackedBy[1]);
-  // board1.printBoard(b1, attackedBy[1], currBoard[0]);
-  // board2.printBoard(b2, attackedBy[0], currBoard[1]);
-
-  playRound(board1, board2, b1, b2, attackedBy, currBoard);
-  playRound(board1, board2, b1, b2, attackedBy, currBoard);
+  playRound(board1, board2, b1, b2, "player");
 }
 
 function clearAll(b1, b2) {
@@ -60,23 +39,44 @@ function clearAll(b1, b2) {
   b2.innerHTML = "";
 }
 
-function playRound(board1, board2, b1, b2, attackedBy, currBoard) {
+//playRound if function that change order in game
+function playRound(board1, board2, b1, b2, currPlayer) {
   clearAll(b1, b2);
-  board1.printBoard(b1, "something", currBoard[0]);
-  board2.printBoard(b2, "something", currBoard[1]);
+  // print both boards without eventlistener or computerattack
+  console.log(currPlayer);
   if (currPlayer === "player") {
-    clearAll(b1, b2);
-    //attacl
-    board1.printBoard(b1, "something", currBoard[0]);
-    board2.printBoard(b2, attackedBy[0], currBoard[1]);
-    currPlayer = "computer";
+    //clear everything then print 1st board as it is and second with addEventlisterner function enabled
+    board1.printBoard(b1, "something", "left");
+    board2.printBoard(b2, currPlayer);
+    if (board2.clicked == true) {
+      if (!board1.over && !board2.over) {
+        board2.clicked = false;
+        currPlayer = "computer";
+        playRound(board1, board2, b1, b2, currPlayer, currBoard);
+      }
+    }
   } else {
-    clearAll(b1, b2);
-    //random attack]
+    //random attack, and then print both boards
     board1.computerRandomAttack();
-    board1.printBoard(b1, attackedBy[1], currBoard[0]);
-    board2.printBoard(b2, "something", currBoard[1]);
+    board1.printBoard(b1, currPlayer, "left");
+    board2.printBoard(b2, "something");
 
     currPlayer = "player";
+
+    if (!board1.over && !board2.over) {
+      playRound(board1, board2, b1, b2, currPlayer);
+    }
+  }
+}
+
+let madeMove = false;
+
+export function playerMadeMove(change) {
+  madeMove = change;
+
+  if (madeMove == true) {
+    madeMove = false;
+
+    playRound(board1, board2, b1, b2, "computer");
   }
 }
