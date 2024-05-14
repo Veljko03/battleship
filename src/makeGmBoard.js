@@ -51,9 +51,9 @@ export default class GameBoard {
       this.board[x][y] = "missed";
       return;
     } else if (this.board[x][y] == "missed") {
-      return;
+      return "invalidMove";
     } else if (this.board[x][y] == "you hitted ship") {
-      return;
+      return "invalidMove";
     } else {
       const ship = this.board[x][y];
       ship.hit();
@@ -102,16 +102,20 @@ export default class GameBoard {
           if (attackedBy == "player") {
             if (!this.over) {
               //player can attack only right board(enemy-computer)
-
-              this.reciveAttack(i, j);
-              if (this.board[i][j] == null || this.board[i][j] == "missed") {
-                c.style.backgroundColor = "gray";
-              } else if (this.board[i][j] == "you hitted ship") {
-                c.style.backgroundColor = "red";
+              if (
+                this.board[i][j] != "missed" &&
+                this.board[i][j] != "you hitted ship"
+              ) {
+                this.reciveAttack(i, j);
+                if (this.board[i][j] == null || this.board[i][j] == "missed") {
+                  c.style.backgroundColor = "gray";
+                } else if (this.board[i][j] == "you hitted ship") {
+                  c.style.backgroundColor = "red";
+                }
+                this.clicked = true;
+                attackedBy = "block next move";
+                playerMadeMove(true);
               }
-              this.clicked = true;
-              attackedBy = "block next move";
-              playerMadeMove(true);
             }
           }
         });
@@ -125,8 +129,12 @@ export default class GameBoard {
       let y = Math.floor(Math.random() * 10);
       console.log(x);
       console.log(y);
-
-      this.reciveAttack(x, y);
+      if (
+        this.board[x][y] != "missed" &&
+        this.board[x][y] != "you hitted ship"
+      ) {
+        this.reciveAttack(x, y);
+      }
     }
   }
 }

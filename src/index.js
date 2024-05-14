@@ -4,17 +4,20 @@ import Ship from "./makeShip";
 
 const startBtn = document.querySelector(".start");
 
+// next thing to do: make player cant git same plice more than once
+// make drag and drop
+
 startBtn.addEventListener("click", () => {
   initializeGame();
 });
-export let currPlayer;
-export const b1 = document.querySelector(".board-one");
-export const b2 = document.querySelector(".board-two");
-export const attackedBy = ["player", "computer"];
-export const player1 = new Player("player");
-export const player2 = new Player("computer");
-export const board1 = player1.board;
-export const board2 = player2.board;
+let currPlayer;
+const b1 = document.querySelector(".board-one");
+const b2 = document.querySelector(".board-two");
+const attackedBy = ["player", "computer"];
+const player1 = new Player("player");
+const player2 = new Player("computer");
+const board1 = player1.board;
+const board2 = player2.board;
 function initializeGame() {
   board1.createBoard();
   board2.createBoard();
