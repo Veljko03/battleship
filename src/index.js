@@ -5,7 +5,7 @@ import Ship from "./makeShip";
 const ships = document.querySelector(".ships");
 
 const startBtn = document.querySelector(".start");
-
+const btnRandom = document.querySelector(".btnRandom");
 // make drag and drop
 
 startBtn.addEventListener("click", () => {
@@ -27,21 +27,27 @@ function initializeGame() {
   // board1.placeShip(5, 5, new Ship(3), "vertical");
   // board1.placeShip(1, 9, new Ship(5), "vertical");
 
-  randomShipPlacment(board1, 5);
-  randomShipPlacment(board1, 3);
-  randomShipPlacment(board1, 3);
-  randomShipPlacment(board1, 2);
-  randomShipPlacment(board1, 2);
+  const randomBtn = document.createElement("button");
+  randomBtn.textContent = "Random placement";
+
+  randomBtn.addEventListener("click", () => {
+    b1.innerHTML = "";
+    board1.createBoard();
+    randomShipPlacment(board1, 5);
+    randomShipPlacment(board1, 3);
+    randomShipPlacment(board1, 3);
+    randomShipPlacment(board1, 2);
+    randomShipPlacment(board1, 2);
+
+    board1.printBoard(b1, "something", "left");
+  });
+  btnRandom.appendChild(randomBtn);
 
   randomShipPlacment(board2, 5);
   randomShipPlacment(board2, 3);
   randomShipPlacment(board2, 3);
   randomShipPlacment(board2, 2);
   randomShipPlacment(board2, 2);
-
-  // board2.placeShip(0, 2, new Ship(3), "vertical");
-  // board2.placeShip(3, 4, new Ship(3), "vertical");
-  // board2.placeShip(0, 6, new Ship(5), "vertical");
 
   let currBoard = ["left", "right"];
   board1.printBoard(b1, "something", "left");
