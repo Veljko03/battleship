@@ -23,13 +23,25 @@ function initializeGame() {
   board1.createBoard();
   board2.createBoard();
 
-  board1.placeShip(3, 4, new Ship(3), "horizontal");
-  board1.placeShip(5, 5, new Ship(3), "vertical");
-  board1.placeShip(1, 9, new Ship(5), "vertical");
+  // board1.placeShip(3, 4, new Ship(3), "horizontal");
+  // board1.placeShip(5, 5, new Ship(3), "vertical");
+  // board1.placeShip(1, 9, new Ship(5), "vertical");
 
-  board2.placeShip(0, 2, new Ship(3), "vertical");
-  board2.placeShip(3, 4, new Ship(3), "vertical");
-  board2.placeShip(0, 6, new Ship(5), "vertical");
+  randomShipPlacment(board1, 5);
+  randomShipPlacment(board1, 3);
+  randomShipPlacment(board1, 3);
+  randomShipPlacment(board1, 2);
+  randomShipPlacment(board1, 2);
+
+  randomShipPlacment(board2, 5);
+  randomShipPlacment(board2, 3);
+  randomShipPlacment(board2, 3);
+  randomShipPlacment(board2, 2);
+  randomShipPlacment(board2, 2);
+
+  // board2.placeShip(0, 2, new Ship(3), "vertical");
+  // board2.placeShip(3, 4, new Ship(3), "vertical");
+  // board2.placeShip(0, 6, new Ship(5), "vertical");
 
   let currBoard = ["left", "right"];
   board1.printBoard(b1, "something", "left");
@@ -89,10 +101,18 @@ export function playerMadeMove(change) {
   }
 }
 
-function addShipsNextToBoard() {
-  let ship1 = document.createElement("");
-}
+function randomShipPlacment(first, length) {
+  let ship1X = Math.floor(Math.random() * 10);
+  console.log(ship1X);
 
-function shipPlacing() {
-  let x = prompt("Choose cordnates fot his boat");
+  let ship1Y = Math.floor(Math.random() * 10);
+  console.log(ship1Y);
+  let placment = Math.random() < 0.5 ? "horizontal" : "vertical";
+  console.log(placment);
+  if (
+    first.placeShip(ship1X, ship1Y, new Ship(length), placment) ==
+    "cant place boat here"
+  ) {
+    randomShipPlacment(first, length);
+  } else first.placeShip(ship1X, ship1Y, new Ship(length), placment);
 }

@@ -12,7 +12,7 @@ import Ship from "./makeShip";
 export default class GameBoard {
   constructor() {
     this.board = [];
-    this.totalNumOfShips = 3;
+    this.totalNumOfShips = 5;
     this.numOfShipsSunk = 0;
 
     this.position = "vertical";
@@ -39,10 +39,10 @@ export default class GameBoard {
           if (this.board[x + i][y] == null) {
             this.board[x + i][y] = ship;
           } else {
-            return alert("cant place boat here");
+            return "cant place boat here";
           }
         }
-      } else return "err";
+      } else return "cant place boat here";
     } else if (position == "horizontal") {
       let size = y + ship.length;
       if (size < 10) {
@@ -50,10 +50,10 @@ export default class GameBoard {
           if (this.board[x][y + i] == null) {
             this.board[x][y + i] = ship;
           } else {
-            return alert("cant place boat here");
+            return "cant place boat here";
           }
         }
-      } else return "err";
+      } else return "cant place boat here";
     }
   }
 
