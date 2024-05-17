@@ -63,7 +63,9 @@ function playRound(board1, board2, b1, b2, currPlayer) {
     }
   } else {
     //random attack, and then print both boards
+
     board1.computerRandomAttack();
+
     board1.printBoard(b1, currPlayer, "left");
     board2.printBoard(b2, "something");
 

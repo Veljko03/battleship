@@ -149,6 +149,8 @@ export default class GameBoard {
         this.board[x][y] != "you hitted ship"
       ) {
         this.reciveAttack(x, y);
+      } else {
+        this.computerRandomAttack();
       }
     }
   }
