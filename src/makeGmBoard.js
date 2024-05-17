@@ -36,7 +36,11 @@ export default class GameBoard {
     if (size < 10) {
       for (let i = 0; i < ship.length; i++) {
         if (position == "vertical") {
-          this.board[x + i][y] = ship;
+          if (this.board[x + i][y] == null) {
+            this.board[x + i][y] = ship;
+          } else {
+            return alert("cant place boat here");
+          }
         }
       }
     } else return "err";

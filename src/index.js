@@ -2,9 +2,10 @@ import "./style.css";
 import Player from "./players";
 import Ship from "./makeShip";
 
+const ships = document.querySelector(".ships");
+
 const startBtn = document.querySelector(".start");
 
-// next thing to do: make player cant git same plice more than once
 // make drag and drop
 
 startBtn.addEventListener("click", () => {
@@ -13,7 +14,7 @@ startBtn.addEventListener("click", () => {
 let currPlayer;
 const b1 = document.querySelector(".board-one");
 const b2 = document.querySelector(".board-two");
-const attackedBy = ["player", "computer"];
+
 const player1 = new Player("player");
 const player2 = new Player("computer");
 const board1 = player1.board;
@@ -22,7 +23,7 @@ function initializeGame() {
   board1.createBoard();
   board2.createBoard();
 
-  board1.placeShip(2, 2, new Ship(3), "vertical");
+  board1.placeShip(5, 5, new Ship(3), "vertical");
   board1.placeShip(5, 5, new Ship(3), "vertical");
   board1.placeShip(1, 9, new Ship(5), "vertical");
 
@@ -34,7 +35,9 @@ function initializeGame() {
   board1.printBoard(b1, "something", "left");
   board2.printBoard(b2, "something");
 
+  //if (allBoatsPlaced) {
   playRound(board1, board2, b1, b2, "player");
+  //}
 }
 
 function clearAll(b1, b2) {
@@ -82,4 +85,12 @@ export function playerMadeMove(change) {
 
     playRound(board1, board2, b1, b2, "computer");
   }
+}
+
+function addShipsNextToBoard() {
+  let ship1 = document.createElement("");
+}
+
+function shipPlacing() {
+  let x = prompt("Choose cordnates fot his boat");
 }
