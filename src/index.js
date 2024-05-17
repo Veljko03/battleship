@@ -23,7 +23,7 @@ function initializeGame() {
   board1.createBoard();
   board2.createBoard();
 
-  board1.placeShip(5, 5, new Ship(3), "vertical");
+  board1.placeShip(3, 4, new Ship(3), "horizontal");
   board1.placeShip(5, 5, new Ship(3), "vertical");
   board1.placeShip(1, 9, new Ship(5), "vertical");
 

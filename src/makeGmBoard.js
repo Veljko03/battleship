@@ -32,18 +32,29 @@ export default class GameBoard {
   }
 
   placeShip(x, y, ship, position) {
-    let size = x + ship.length;
-    if (size < 10) {
-      for (let i = 0; i < ship.length; i++) {
-        if (position == "vertical") {
+    if (position == "vertical") {
+      let size = x + ship.length;
+      if (size < 10) {
+        for (let i = 0; i < ship.length; i++) {
           if (this.board[x + i][y] == null) {
             this.board[x + i][y] = ship;
           } else {
             return alert("cant place boat here");
           }
         }
-      }
-    } else return "err";
+      } else return "err";
+    } else if (position == "horizontal") {
+      let size = y + ship.length;
+      if (size < 10) {
+        for (let i = 0; i < ship.length; i++) {
+          if (this.board[x][y + i] == null) {
+            this.board[x][y + i] = ship;
+          } else {
+            return alert("cant place boat here");
+          }
+        }
+      } else return "err";
+    }
   }
 
   getTailValue(x, y) {
