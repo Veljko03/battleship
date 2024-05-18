@@ -4,6 +4,8 @@ import playRound, {
   board1,
   board2,
   currPlayer,
+  dgDrop,
+  dgOver,
   madeMove,
   playerMadeMove,
 } from ".";
@@ -111,6 +113,11 @@ export default class GameBoard {
         } else {
           c.style.backgroundColor = "white";
         }
+        c.setAttribute("x", i);
+        c.setAttribute("y", j);
+        // c.setAttribute("dragover", dgOver());
+        // c.setAttribute("drop", dgDrop());
+
         r.appendChild(c);
 
         c.addEventListener("click", () => {

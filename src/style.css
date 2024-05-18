@@ -30,3 +30,13 @@ h1 {
   width: 500px;
   height: 500px;
 }
+.ships {
+  display: flex;
+  gap: 20px;
+  display: none;
+}
+.ship {
+  height: 50px;
+
+  background-color: black;
+}

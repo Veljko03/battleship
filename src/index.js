@@ -8,9 +8,15 @@ const startBtn = document.querySelector(".start");
 const btnRandom = document.querySelector(".btnRandom");
 // make drag and drop
 
+let canClickAgain = true;
+
 startBtn.addEventListener("click", () => {
-  initializeGame();
+  if (canClickAgain) {
+    initializeGame();
+    canClickAgain = false;
+  }
 });
+
 let currPlayer;
 const b1 = document.querySelector(".board-one");
 const b2 = document.querySelector(".board-two");
@@ -19,13 +25,10 @@ const player1 = new Player("player");
 const player2 = new Player("computer");
 const board1 = player1.board;
 const board2 = player2.board;
+let allBoatsPlaced;
 function initializeGame() {
   board1.createBoard();
   board2.createBoard();
-
-  // board1.placeShip(3, 4, new Ship(3), "horizontal");
-  // board1.placeShip(5, 5, new Ship(3), "vertical");
-  // board1.placeShip(1, 9, new Ship(5), "vertical");
 
   const randomBtn = document.createElement("button");
   randomBtn.textContent = "Random placement";
@@ -38,8 +41,9 @@ function initializeGame() {
     randomShipPlacment(board1, 3);
     randomShipPlacment(board1, 2);
     randomShipPlacment(board1, 2);
-
+    allBoatsPlaced = 5;
     board1.printBoard(b1, "something", "left");
+    playRound(board1, board2, b1, b2, "player");
   });
   btnRandom.appendChild(randomBtn);
 
@@ -48,14 +52,11 @@ function initializeGame() {
   randomShipPlacment(board2, 3);
   randomShipPlacment(board2, 2);
   randomShipPlacment(board2, 2);
+  shipsForDragAndDrop(board1);
 
   let currBoard = ["left", "right"];
   board1.printBoard(b1, "something", "left");
   board2.printBoard(b2, "something");
-
-  //if (allBoatsPlaced) {
-  playRound(board1, board2, b1, b2, "player");
-  //}
 }
 
 function clearAll(b1, b2) {
@@ -121,4 +122,37 @@ function randomShipPlacment(first, length) {
   ) {
     randomShipPlacment(first, length);
   } else first.placeShip(ship1X, ship1Y, new Ship(length), placment);
+}
+
+function shipsForDragAndDrop(first) {
+  ships.style.display = "flex";
+  let selected;
+  let ship = document.querySelectorAll(".ship");
+  ship.forEach((s) => {
+    s.addEventListener("dragstart", (e) => {
+      selected = e.target.id;
+      console.log(e.target);
+    });
+  });
+  b1.addEventListener("dragover", (e) => {
+    e.preventDefault();
+  });
+
+  b1.addEventListener("drop", (e) => {
+    b1.innerHTML = "";
+
+    let newX = e.target;
+    let x = parseInt(newX.getAttribute("x"));
+    let newY = e.target;
+    let y = parseInt(newY.getAttribute("y"));
+    console.log(
+      first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal")
+    );
+    first.placeShip(x, y, new Ship(selected), "horizontal");
+    x = null;
+    y = null;
+    selected = null;
+
+    first.printBoard(b1, "something", "left");
+  });
 }
