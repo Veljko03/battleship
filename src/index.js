@@ -10,6 +10,7 @@ const btnRandom = document.querySelector(".btnRandom");
 
 let canClickAgain = true;
 
+let shipsPlaced = 0;
 startBtn.addEventListener("click", () => {
   if (canClickAgain) {
     initializeGame();
@@ -140,15 +141,20 @@ function shipsForDragAndDrop(first) {
 
   b1.addEventListener("drop", (e) => {
     b1.innerHTML = "";
-
+    e.preventDefault();
     let newX = e.target;
     let x = parseInt(newX.getAttribute("x"));
     let newY = e.target;
     let y = parseInt(newY.getAttribute("y"));
-    console.log(
-      first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal")
-    );
-    first.placeShip(x, y, new Ship(selected), "horizontal");
+
+    if (
+      first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal") !=
+      "cant place boat here"
+    ) {
+      first.placeShip(x, y, new Ship(selected), "horizontal");
+      shipsPlaced++;
+    }
+    console.log(shipsPlaced);
     x = null;
     y = null;
     selected = null;
@@ -156,3 +162,5 @@ function shipsForDragAndDrop(first) {
     first.printBoard(b1, "something", "left");
   });
 }
+
+//za sutra proveriti zasto menja boju polja iako ne place SHip itd...
