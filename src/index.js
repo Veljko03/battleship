@@ -69,7 +69,7 @@ function clearAll(b1, b2) {
 function playRound(board1, board2, b1, b2, currPlayer) {
   clearAll(b1, b2);
   // print both boards without eventlistener or computerattack
-  console.log(currPlayer);
+
   if (currPlayer === "player") {
     //clear everything then print 1st board as it is and second with addEventlisterner function enabled
     board1.printBoard(b1, "something", "left");
@@ -111,12 +111,11 @@ export function playerMadeMove(change) {
 
 function randomShipPlacment(first, length) {
   let ship1X = Math.floor(Math.random() * 10);
-  console.log(ship1X);
 
   let ship1Y = Math.floor(Math.random() * 10);
-  console.log(ship1Y);
+
   let placment = Math.random() < 0.5 ? "horizontal" : "vertical";
-  console.log(placment);
+
   if (
     first.placeShip(ship1X, ship1Y, new Ship(length), placment) ==
     "cant place boat here"
@@ -132,7 +131,6 @@ function shipsForDragAndDrop(first) {
   ship.forEach((s) => {
     s.addEventListener("dragstart", (e) => {
       selected = e.target.id;
-      console.log(e.target);
     });
   });
   b1.addEventListener("dragover", (e) => {
@@ -146,20 +144,28 @@ function shipsForDragAndDrop(first) {
     let x = parseInt(newX.getAttribute("x"));
     let newY = e.target;
     let y = parseInt(newY.getAttribute("y"));
-
+    console.log(
+      first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal")
+    );
     if (
-      first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal") !=
+      first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal") ==
       "cant place boat here"
     ) {
-      first.placeShip(x, y, new Ship(selected), "horizontal");
-      shipsPlaced++;
-    }
-    console.log(shipsPlaced);
-    x = null;
-    y = null;
-    selected = null;
+      x = null;
+      y = null;
+      selected = null;
+      first.printBoard(b1, "something", "left");
 
-    first.printBoard(b1, "something", "left");
+      return;
+    } else {
+      first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal");
+
+      x = null;
+      y = null;
+      selected = null;
+
+      first.printBoard(b1, "something", "left");
+    }
   });
 }
 

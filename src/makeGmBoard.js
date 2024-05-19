@@ -20,6 +20,7 @@ export default class GameBoard {
     this.position = "vertical";
     this.over = false;
     this.clicked = false;
+    this.shipPlaced = false;
   }
   createBoard() {
     const size = 10;
@@ -34,28 +35,49 @@ export default class GameBoard {
   }
 
   placeShip(x, y, ship, position) {
-    if (position == "vertical") {
+    //for loop for preventing placing boats if full boat cant fit there
+    let canPlaceShip = false;
+    if (position == "vertical" || position == "horizontal") {
       let size = x + ship.length;
       if (size < 10) {
         for (let i = 0; i < ship.length; i++) {
-          if (this.board[x + i][y] == null) {
-            this.board[x + i][y] = ship;
-          } else {
+          if (this.board[x + i][y] != null) {
+            canPlaceShip = false;
+
             return "cant place boat here";
+          } else {
+            canPlaceShip = true;
           }
         }
-      } else return "cant place boat here";
-    } else if (position == "horizontal") {
-      let size = y + ship.length;
-      if (size < 10) {
-        for (let i = 0; i < ship.length; i++) {
-          if (this.board[x][y + i] == null) {
-            this.board[x][y + i] = ship;
-          } else {
-            return "cant place boat here";
+      } else {
+        return "cant place boat here";
+      }
+    }
+    if (canPlaceShip) {
+      canPlaceShip = false;
+      if (position == "vertical") {
+        let size = x + ship.length;
+        if (size < 10) {
+          for (let i = 0; i < ship.length; i++) {
+            if (this.board[x + i][y] == null) {
+              this.board[x + i][y] = ship;
+            } else {
+              return "cant place boat here";
+            }
           }
-        }
-      } else return "cant place boat here";
+        } else return "cant place boat here";
+      } else if (position == "horizontal") {
+        let size = y + ship.length;
+        if (size < 10) {
+          for (let i = 0; i < ship.length; i++) {
+            if (this.board[x][y + i] == null) {
+              this.board[x][y + i] = ship;
+            } else {
+              return "cant place boat here";
+            }
+          }
+        } else return "cant place boat here";
+      }
     }
   }
 
@@ -99,6 +121,7 @@ export default class GameBoard {
       for (let j = 0; j <= rows; j++) {
         const c = document.createElement("div");
         c.setAttribute("class", "cell");
+
         if (this.board[i][j] == "missed") {
           c.style.backgroundColor = "gray";
         } else if (this.board[i][j] == "you hitted ship") {
@@ -149,8 +172,7 @@ export default class GameBoard {
     if (!this.over) {
       let x = Math.floor(Math.random() * 10);
       let y = Math.floor(Math.random() * 10);
-      console.log(x);
-      console.log(y);
+
       if (
         this.board[x][y] != "missed" &&
         this.board[x][y] != "you hitted ship"
