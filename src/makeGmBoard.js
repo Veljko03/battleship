@@ -39,12 +39,28 @@ export default class GameBoard {
     let canPlaceShip = false;
     if (b1 == "b1") {
       canPlaceShip = false;
-      if (position == "vertical" || position == "horizontal") {
-        let size = x + ship.length;
+      if (position == "horizontal") {
+        let size = y + ship.length - 1;
         if (size < 10) {
           for (let i = 0; i < ship.length; i++) {
             //console.log(this.board[x + i][y]);
             if (this.board[x][y + i] != null) {
+              canPlaceShip = false;
+
+              return "cant place boat here";
+            } else {
+              canPlaceShip = true;
+            }
+          }
+        } else {
+          return "cant place boat here";
+        }
+      } else if (position == "vertical") {
+        let size = x + ship.length - 1;
+        if (size < 10) {
+          for (let i = 0; i < ship.length; i++) {
+            //console.log(this.board[x + i][y]);
+            if (this.board[x + i][y] != null) {
               canPlaceShip = false;
 
               return "cant place boat here";
@@ -63,7 +79,7 @@ export default class GameBoard {
     if (canPlaceShip) {
       canPlaceShip = false;
       if (position == "vertical") {
-        let size = x + ship.length;
+        let size = x + ship.length - 1;
         if (size < 10) {
           for (let i = 0; i < ship.length; i++) {
             if (this.board[x + i][y] == null) {
@@ -74,7 +90,7 @@ export default class GameBoard {
           }
         } else return "cant place boat here";
       } else if (position == "horizontal") {
-        let size = y + ship.length;
+        let size = y + ship.length - 1;
         if (size < 10) {
           for (let i = 0; i < ship.length; i++) {
             if (this.board[x][y + i] == null) {
