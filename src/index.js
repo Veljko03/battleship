@@ -144,28 +144,28 @@ function shipsForDragAndDrop(first) {
     let x = parseInt(newX.getAttribute("x"));
     let newY = e.target;
     let y = parseInt(newY.getAttribute("y"));
-    console.log(
-      first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal")
-    );
-    if (
-      first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal") ==
-      "cant place boat here"
-    ) {
-      x = null;
-      y = null;
-      selected = null;
-      first.printBoard(b1, "something", "left");
+    // console.log(
+    //   first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal")
+    // );
+    // if (
+    //   first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal", "b1") ==
+    //   "cant place boat here"
+    // ) {
+    //   x = null;
+    //   y = null;
+    //   selected = null;
+    //   first.printBoard(b1, "something", "left");
 
-      return;
-    } else {
-      first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal");
+    //   return;
+    // } else {
+    first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal", "b1");
 
-      x = null;
-      y = null;
-      selected = null;
+    x = null;
+    y = null;
+    selected = null;
 
-      first.printBoard(b1, "something", "left");
-    }
+    first.printBoard(b1, "something", "left");
+    //}
   });
 }
 

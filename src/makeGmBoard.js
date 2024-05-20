@@ -34,25 +34,32 @@ export default class GameBoard {
     }
   }
 
-  placeShip(x, y, ship, position) {
+  placeShip(x, y, ship, position, b1) {
     //for loop for preventing placing boats if full boat cant fit there
     let canPlaceShip = false;
-    if (position == "vertical" || position == "horizontal") {
-      let size = x + ship.length;
-      if (size < 10) {
-        for (let i = 0; i < ship.length; i++) {
-          if (this.board[x + i][y] != null) {
-            canPlaceShip = false;
+    if (b1 == "b1") {
+      canPlaceShip = false;
+      if (position == "vertical" || position == "horizontal") {
+        let size = x + ship.length;
+        if (size < 10) {
+          for (let i = 0; i < ship.length; i++) {
+            //console.log(this.board[x + i][y]);
+            if (this.board[x][y + i] != null) {
+              canPlaceShip = false;
 
-            return "cant place boat here";
-          } else {
-            canPlaceShip = true;
+              return "cant place boat here";
+            } else {
+              canPlaceShip = true;
+            }
           }
+        } else {
+          return "cant place boat here";
         }
-      } else {
-        return "cant place boat here";
       }
+    } else {
+      canPlaceShip = true;
     }
+
     if (canPlaceShip) {
       canPlaceShip = false;
       if (position == "vertical") {
