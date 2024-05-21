@@ -15,6 +15,7 @@ startBtn.addEventListener("click", () => {
   if (canClickAgain) {
     initializeGame();
     canClickAgain = false;
+    startBtn.style.display = "none";
   }
 });
 
@@ -33,7 +34,7 @@ function initializeGame() {
 
   const randomBtn = document.createElement("button");
   randomBtn.textContent = "Random placement";
-
+  randomBtn.classList.add("randomBtn");
   randomBtn.addEventListener("click", () => {
     b1.innerHTML = "";
     board1.createBoard();
@@ -144,22 +145,11 @@ function shipsForDragAndDrop(first) {
     let x = parseInt(newX.getAttribute("x"));
     let newY = e.target;
     let y = parseInt(newY.getAttribute("y"));
-    // console.log(
-    //   first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal")
-    // );
-    // if (
-    //   first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal", "b1") ==
-    //   "cant place boat here"
-    // ) {
-    //   x = null;
-    //   y = null;
-    //   selected = null;
-    //   first.printBoard(b1, "something", "left");
 
-    //   return;
-    // } else {
     first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal", "b1");
 
+    // removing elements after placing them
+    document.getElementById(selected).outerHTML = "";
     x = null;
     y = null;
     selected = null;

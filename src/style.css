@@ -4,7 +4,9 @@ body {
 }
 
 h1 {
-  color: red;
+  color: rgb(120, 255, 58);
+  font-size: 40px;
+  justify-self: center;
 }
 .make {
   display: flex;
@@ -34,7 +36,22 @@ h1 {
   display: flex;
   gap: 20px;
   display: none;
+  justify-content: center;
+  align-items: center;
 }
 .ship {
   background-color: black;
+}
+.placeShips {
+  color: rgb(120, 255, 58);
+
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.randomBtn {
+  color: black;
+  font-weight: 800;
+  font-size: 25px;
+  border-radius: 15px;
 }
