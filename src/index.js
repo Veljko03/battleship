@@ -6,11 +6,11 @@ const ships = document.querySelector(".ships");
 
 const startBtn = document.querySelector(".start");
 const btnRandom = document.querySelector(".btnRandom");
-// make drag and drop
+const btnRotate = document.querySelector(".btnRotate");
 
 let canClickAgain = true;
 
-let shipsPlaced = 0;
+let position = "horizontal";
 startBtn.addEventListener("click", () => {
   if (canClickAgain) {
     initializeGame();
@@ -146,10 +146,13 @@ function shipsForDragAndDrop(first) {
     let newY = e.target;
     let y = parseInt(newY.getAttribute("y"));
 
-    first.placeShip(x, y, new Ship(parseInt(selected)), "horizontal", "b1");
+    first.placeShip(x, y, new Ship(parseInt(selected)), position, "b1");
 
     // removing elements after placing them
-    document.getElementById(selected).outerHTML = "";
+    if (first.shipPlaced == true) {
+      document.getElementById(selected).outerHTML = "";
+    }
+    console.log(first.shipPlaced);
     x = null;
     y = null;
     selected = null;
@@ -159,4 +162,39 @@ function shipsForDragAndDrop(first) {
   });
 }
 
-//za sutra proveriti zasto menja boju polja iako ne place SHip itd...
+btnRotate.addEventListener("click", () => {
+  let shipss = document.querySelectorAll(".ship");
+
+  if (position == "vertical") {
+    shipss.forEach((ship) => {
+      if (ship.id == 5) {
+        ship.style.width = "250px";
+        ship.style.height = "50px";
+      } else if (ship.id == 3) {
+        ship.style.width = "150px";
+        ship.style.height = "50px";
+      } else if (ship.id == 2) {
+        ship.style.width = "100px";
+        ship.style.height = "50px";
+      }
+
+      position = "horizontal";
+      console.log(position);
+    });
+  } else {
+    shipss.forEach((ship) => {
+      if (ship.id == 5) {
+        ship.style.width = "50px";
+        ship.style.height = "250px";
+      } else if (ship.id == 3) {
+        ship.style.width = "50px";
+        ship.style.height = "150px";
+      } else if (ship.id == 2) {
+        ship.style.width = "50px";
+        ship.style.height = "100px";
+      }
+      position = "vertical";
+      console.log(position);
+    });
+  }
+});

@@ -46,13 +46,15 @@ export default class GameBoard {
             //console.log(this.board[x + i][y]);
             if (this.board[x][y + i] != null) {
               canPlaceShip = false;
-
+              this.shipPlaced = false;
               return "cant place boat here";
             } else {
               canPlaceShip = true;
+              this.shipPlaced = true;
             }
           }
         } else {
+          this.shipPlaced = false;
           return "cant place boat here";
         }
       } else if (position == "vertical") {
@@ -62,13 +64,15 @@ export default class GameBoard {
             //console.log(this.board[x + i][y]);
             if (this.board[x + i][y] != null) {
               canPlaceShip = false;
-
+              this.canPlaceShip = false;
               return "cant place boat here";
             } else {
+              this.canPlaceShip = true;
               canPlaceShip = true;
             }
           }
         } else {
+          this.canPlaceShip = false;
           return "cant place boat here";
         }
       }
