@@ -7,8 +7,10 @@ const ships = document.querySelector(".ships");
 const startBtn = document.querySelector(".start");
 const btnRandom = document.querySelector(".btnRandom");
 const btnRotate = document.querySelector(".btnRotate");
-
+btnRotate.style.display = "none";
 let canClickAgain = true;
+let shipsPlaced = 0;
+let canDragShips = true;
 
 let position = "horizontal";
 startBtn.addEventListener("click", () => {
@@ -16,6 +18,7 @@ startBtn.addEventListener("click", () => {
     initializeGame();
     canClickAgain = false;
     startBtn.style.display = "none";
+    btnRotate.style.display = "flex";
   }
 });
 
@@ -27,7 +30,7 @@ const player1 = new Player("player");
 const player2 = new Player("computer");
 const board1 = player1.board;
 const board2 = player2.board;
-let allBoatsPlaced;
+
 function initializeGame() {
   board1.createBoard();
   board2.createBoard();
@@ -43,7 +46,7 @@ function initializeGame() {
     randomShipPlacment(board1, 3);
     randomShipPlacment(board1, 2);
     randomShipPlacment(board1, 2);
-    allBoatsPlaced = 5;
+    canDragShips = false;
     board1.printBoard(b1, "something", "left");
     playRound(board1, board2, b1, b2, "player");
   });
@@ -54,6 +57,7 @@ function initializeGame() {
   randomShipPlacment(board2, 3);
   randomShipPlacment(board2, 2);
   randomShipPlacment(board2, 2);
+
   shipsForDragAndDrop(board1);
 
   let currBoard = ["left", "right"];
@@ -151,6 +155,10 @@ function shipsForDragAndDrop(first) {
     // removing elements after placing them
     if (first.shipPlaced == true) {
       document.getElementById(selected).outerHTML = "";
+      shipsPlaced++;
+      if (shipsPlaced == 5) {
+        playRound();
+      }
     }
     console.log(first.shipPlaced);
     x = null;
