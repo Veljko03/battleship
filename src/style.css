@@ -75,3 +75,12 @@ h1 {
 .btnRotate {
   margin-left: 50px;
 }
+
+.shipContainer {
+  display: flex;
+  gap: 20px;
+}
+.allS {
+  display: flex;
+  gap: 30px;
+}

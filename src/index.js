@@ -7,6 +7,35 @@ const ships = document.querySelector(".ships");
 const startBtn = document.querySelector(".start");
 const btnRandom = document.querySelector(".btnRandom");
 const btnRotate = document.querySelector(".btnRotate");
+const btnClear = document.querySelector(".btnClear");
+const clearBoard = document.querySelector(".clearBoard");
+
+// function FunClearBoard() {
+//   const btnClearAll = document.createElement("button");
+//   btnClearAll.textContent = "Clear board";
+//   clearBoard.appendChild(btnClear);
+//   btnClearAll.addEventListener("click", () => {
+//     b1.innerHTML = "";
+
+//     board1.createBoard();
+//     board1.printBoard(b1, "something", "left");
+//   });
+// }
+
+function clearAfterPlace() {
+  document.querySelector(".shipContainer").style.display = "none";
+  const startGame = document.createElement("button");
+  startGame.textContent = "Start Game";
+  btnClear.appendChild(startGame);
+  startGame.addEventListener("click", () => {
+    playRound(board1, board2, b1, b2, "player");
+    btnClear.style.display = "none";
+    btnRotate.style.display = "none";
+    btnRandom.style.display = "none";
+  });
+  //startGame.style.display = "none";
+}
+
 btnRotate.style.display = "none";
 let canClickAgain = true;
 let shipsPlaced = 0;
@@ -40,6 +69,8 @@ function initializeGame() {
   randomBtn.classList.add("randomBtn");
   randomBtn.addEventListener("click", () => {
     b1.innerHTML = "";
+    btnClear.innerHTML = "";
+    //FunClearBoard();
     board1.createBoard();
     randomShipPlacment(board1, 5);
     randomShipPlacment(board1, 3);
@@ -48,7 +79,8 @@ function initializeGame() {
     randomShipPlacment(board1, 2);
     canDragShips = false;
     board1.printBoard(b1, "something", "left");
-    playRound(board1, board2, b1, b2, "player");
+    //playRound(board1, board2, b1, b2, "player");
+    clearAfterPlace();
   });
   btnRandom.appendChild(randomBtn);
 
@@ -157,7 +189,7 @@ function shipsForDragAndDrop(first) {
       document.getElementById(selected).outerHTML = "";
       shipsPlaced++;
       if (shipsPlaced == 5) {
-        playRound();
+        clearAfterPlace();
       }
     }
     console.log(first.shipPlaced);
