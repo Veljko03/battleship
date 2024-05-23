@@ -67,8 +67,8 @@ export default class GameBoard {
               this.canPlaceShip = false;
               return "cant place boat here";
             } else {
-              this.canPlaceShip = true;
               canPlaceShip = true;
+              this.shipPlaced = true;
             }
           }
         } else {

@@ -51,7 +51,8 @@ h1 {
 
 .randomBtn,
 .btnRotate,
-.btnClearAll {
+.btnClearAll,
+.startGameBtn {
   color: black;
   font-weight: 800;
   font-size: 25px;
@@ -88,4 +89,9 @@ h1 {
 .btnClearAll {
   margin-right: 50px;
   margin-top: 20px;
+}
+.startGameBtn {
+  font-size: 40px;
+  margin-left: 40px;
+  background-color: aquamarine;
 }

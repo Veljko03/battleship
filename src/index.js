@@ -14,6 +14,7 @@ function clearAfterPlace() {
   document.querySelector(".shipContainer").style.display = "none";
   const startGame = document.createElement("button");
   startGame.textContent = "Start Game";
+  startGame.classList.add("startGameBtn");
   btnClear.appendChild(startGame);
   startGame.addEventListener("click", () => {
     playRound(board1, board2, b1, b2, "player");
@@ -170,10 +171,14 @@ function randomShipPlacment(first, length) {
 function shipsForDragAndDrop(first) {
   ships.style.display = "flex";
   let selected;
+  let currId;
   let ship = document.querySelectorAll(".ship");
   ship.forEach((s) => {
     s.addEventListener("dragstart", (e) => {
-      selected = e.target.id;
+      let s = e.target;
+      selected = parseInt(s.getAttribute("name"));
+
+      currId = e.target.id;
     });
   });
   b1.addEventListener("dragover", (e) => {
@@ -187,12 +192,12 @@ function shipsForDragAndDrop(first) {
     let x = parseInt(newX.getAttribute("x"));
     let newY = e.target;
     let y = parseInt(newY.getAttribute("y"));
-
+    first.shipPlaced = false;
     first.placeShip(x, y, new Ship(parseInt(selected)), position, "b1");
 
     // removing elements after placing them
     if (first.shipPlaced == true) {
-      document.getElementById(selected).style.display = "none";
+      document.getElementById(currId).style.display = "none";
       shipsPlaced++;
       if (shipsPlaced == 5) {
         clearAfterPlace();
@@ -216,10 +221,10 @@ btnRotate.addEventListener("click", () => {
       if (ship.id == 5) {
         ship.style.width = "250px";
         ship.style.height = "50px";
-      } else if (ship.id == 3) {
+      } else if (ship.id == 3 || ship.id == 4) {
         ship.style.width = "150px";
         ship.style.height = "50px";
-      } else if (ship.id == 2) {
+      } else if (ship.id == 2 || ship.id == 1) {
         ship.style.width = "100px";
         ship.style.height = "50px";
       }
@@ -232,10 +237,10 @@ btnRotate.addEventListener("click", () => {
       if (ship.id == 5) {
         ship.style.width = "50px";
         ship.style.height = "250px";
-      } else if (ship.id == 3) {
+      } else if (ship.id == 3 || ship.id == 4) {
         ship.style.width = "50px";
         ship.style.height = "150px";
-      } else if (ship.id == 2) {
+      } else if (ship.id == 2 || ship.id == 1) {
         ship.style.width = "50px";
         ship.style.height = "100px";
       }
