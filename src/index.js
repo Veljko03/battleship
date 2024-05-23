@@ -10,18 +10,6 @@ const btnRotate = document.querySelector(".btnRotate");
 const btnClear = document.querySelector(".btnClear");
 const clearBoard = document.querySelector(".clearBoard");
 
-// function FunClearBoard() {
-//   const btnClearAll = document.createElement("button");
-//   btnClearAll.textContent = "Clear board";
-//   clearBoard.appendChild(btnClear);
-//   btnClearAll.addEventListener("click", () => {
-//     b1.innerHTML = "";
-
-//     board1.createBoard();
-//     board1.printBoard(b1, "something", "left");
-//   });
-// }
-
 function clearAfterPlace() {
   document.querySelector(".shipContainer").style.display = "none";
   const startGame = document.createElement("button");
@@ -32,6 +20,7 @@ function clearAfterPlace() {
     btnClear.style.display = "none";
     btnRotate.style.display = "none";
     btnRandom.style.display = "none";
+    document.querySelector(".clearBoard").innerHTML = "";
   });
   //startGame.style.display = "none";
 }
@@ -64,13 +53,30 @@ function initializeGame() {
   board1.createBoard();
   board2.createBoard();
 
+  const btnClearAll = document.createElement("button");
+  btnClearAll.classList.add("btnClearAll");
+  btnClearAll.textContent = "Clear board";
+  clearBoard.appendChild(btnClearAll);
+  btnClearAll.addEventListener("click", () => {
+    b1.innerHTML = "";
+    let ss = document.querySelectorAll(".ship");
+    ss.forEach((s) => {
+      s.style.display = "flex";
+    });
+
+    btnClear.innerHTML = "";
+    document.querySelector(".shipContainer").style.display = "flex";
+    board1.createBoard();
+    board1.printBoard(b1, "something", "left");
+  });
+
   const randomBtn = document.createElement("button");
   randomBtn.textContent = "Random placement";
   randomBtn.classList.add("randomBtn");
   randomBtn.addEventListener("click", () => {
     b1.innerHTML = "";
     btnClear.innerHTML = "";
-    //FunClearBoard();
+
     board1.createBoard();
     randomShipPlacment(board1, 5);
     randomShipPlacment(board1, 3);
@@ -79,7 +85,7 @@ function initializeGame() {
     randomShipPlacment(board1, 2);
     canDragShips = false;
     board1.printBoard(b1, "something", "left");
-    //playRound(board1, board2, b1, b2, "player");
+
     clearAfterPlace();
   });
   btnRandom.appendChild(randomBtn);
@@ -186,7 +192,7 @@ function shipsForDragAndDrop(first) {
 
     // removing elements after placing them
     if (first.shipPlaced == true) {
-      document.getElementById(selected).outerHTML = "";
+      document.getElementById(selected).style.display = "none";
       shipsPlaced++;
       if (shipsPlaced == 5) {
         clearAfterPlace();

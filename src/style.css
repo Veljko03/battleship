@@ -50,7 +50,8 @@ h1 {
 }
 
 .randomBtn,
-.btnRotate {
+.btnRotate,
+.btnClearAll {
   color: black;
   font-weight: 800;
   font-size: 25px;
@@ -83,4 +84,8 @@ h1 {
 .allS {
   display: flex;
   gap: 30px;
+}
+.btnClearAll {
+  margin-right: 50px;
+  margin-top: 20px;
 }
