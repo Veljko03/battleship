@@ -60,6 +60,7 @@ function initializeGame() {
   clearBoard.appendChild(btnClearAll);
   btnClearAll.addEventListener("click", () => {
     b1.innerHTML = "";
+    shipsPlaced = 0;
     let ss = document.querySelectorAll(".ship");
     ss.forEach((s) => {
       s.style.display = "flex";
